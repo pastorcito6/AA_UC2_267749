@@ -12,36 +12,44 @@
 public class main {
 
     public static void main(String[] args) {
-        try (Scanner sc = new Scanner(System.in)) {
-            int[] numeros = {64, 25, 12, 22, 11};
-            int opcion;
-            
-            System.out.println("=== Algoritmos de Ordenamiento ===");
-            System.out.println("1. Ordenamiento Burbuja");
-            System.out.println("2. Ordenamiento Seleccion");
-            System.out.print("Elige una opcion: ");
-            opcion = sc.nextInt();
-            
-            System.out.println("\nArreglo original:");
-            ordenamientos.imprimirArreglo(numeros);
-            
-            switch (opcion) {
-                case 1 -> {
-                    ordenamientos.burbuja(numeros);
-                    System.out.println("\nOrdenado con Burbuja:");
-                }
-                case 2 -> {
-                    ordenamientos.seleccion(numeros);
-                    System.out.println("\nOrdenado con Seleccion:");
-                }
-                default -> {
-                    System.out.println("Opcion no valida.");
-                    return;
-                }
-            }
-            
-            ordenamientos.imprimirArreglo(numeros);
+
+        Scanner sc = new Scanner(System.in);
+
+        int[] numeros = {64, 25, 12, 22, 11};
+        int opcion;
+
+        System.out.println("=== Algoritmos de Ordenamiento ===");
+        System.out.println("1. Ordenamiento Burbuja");
+        System.out.println("2. Ordenamiento Seleccion");
+        System.out.println("3. Ordenamiento Insercion");
+        System.out.print("Elige una opcion: ");
+        opcion = sc.nextInt();
+
+        System.out.println("\nArreglo original:");
+        ordenamientos.imprimirArreglo(numeros);
+
+        switch (opcion) {
+
+            case 1:
+                ordenamientos.burbuja(numeros);
+                System.out.println("\nOrdenado con Burbuja:");
+                break;
+
+            case 2:
+                ordenamientos.seleccion(numeros);
+                System.out.println("\nOrdenado con Seleccion:");
+                break;
+
+            case 3:
+                ordenamientos.insercion(numeros);
+                System.out.println("\nOrdenado con Insercion:");
+                break;
+
+            default:
+                System.out.println("Opcion no valida.");
+                return;
         }
+
+        ordenamientos.imprimirArreglo(numeros);
     }
 }
-
