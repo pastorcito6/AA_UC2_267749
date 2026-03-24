@@ -1,55 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+import java.util.Scanner;
 
-/**
- *
- * @author DELL
- */
-    import java.util.Scanner;
-
-public class main {
+public class Main {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        try (Scanner sc = new Scanner(System.in)) {
 
-        int[] numeros = {64, 25, 12, 22, 11};
-        int opcion;
+            int[] numeros = {64, 25, 12, 22, 11};
+            int opcion;
 
-        System.out.println("=== Algoritmos de Ordenamiento ===");
-        System.out.println("1. Ordenamiento Burbuja");
-        System.out.println("2. Ordenamiento Seleccion");
-        System.out.println("3. Ordenamiento Insercion");
-        System.out.print("Elige una opcion: ");
-        opcion = sc.nextInt();
+            System.out.println("=== Algoritmos de Ordenamiento ===");
+            System.out.println("1. Ordenamiento Burbuja");
+            System.out.println("2. Ordenamiento Seleccion");
+            System.out.println("3. Ordenamiento Insercion");
+            System.out.println("4. Quicksort");
+            System.out.print("Elige una opcion: ");
+            opcion = sc.nextInt();
 
-        System.out.println("\nArreglo original:");
-        ordenamientos.imprimirArreglo(numeros);
+            System.out.println("\nArreglo original:");
+            Ordenamientos.imprimirArreglo(numeros);
 
-        switch (opcion) {
+            switch (opcion) {
 
-            case 1:
-                ordenamientos.burbuja(numeros);
-                System.out.println("\nOrdenado con Burbuja:");
-                break;
+                case 1:
+                    Ordenamientos.burbuja(numeros);
+                    System.out.println("\nOrdenado con Burbuja:");
+                    break;
 
-            case 2:
-                ordenamientos.seleccion(numeros);
-                System.out.println("\nOrdenado con Seleccion:");
-                break;
+                case 2:
+                    Ordenamientos.seleccion(numeros);
+                    System.out.println("\nOrdenado con Seleccion:");
+                    break;
 
-            case 3:
-                ordenamientos.insercion(numeros);
-                System.out.println("\nOrdenado con Insercion:");
-                break;
+                case 3:
+                    Ordenamientos.insercion(numeros);
+                    System.out.println("\nOrdenado con Insercion:");
+                    break;
 
-            default:
-                System.out.println("Opcion no valida.");
-                return;
+                case 4:
+                    Ordenamientos.quicksort(numeros, 0, numeros.length - 1);
+                    System.out.println("\nOrdenado con Quicksort:");
+                    break;
+
+                default:
+                    System.out.println("Opcion no valida.");
+                    return;
+            }
+
+            Ordenamientos.imprimirArreglo(numeros);
         }
-
-        ordenamientos.imprimirArreglo(numeros);
     }
 }
