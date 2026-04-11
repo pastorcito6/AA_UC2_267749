@@ -14,6 +14,7 @@ public class Main {
             System.out.println("2. Ordenamiento Seleccion");
             System.out.println("3. Ordenamiento Insercion");
             System.out.println("4. Quicksort");
+            System.out.println("5. Merge Sort"); // 🔵 NUEVO
             System.out.print("Elige una opcion: ");
             opcion = sc.nextInt();
 
@@ -40,6 +41,11 @@ public class Main {
                 case 4:
                     Ordenamientos.quicksort(numeros, 0, numeros.length - 1);
                     System.out.println("\nOrdenado con Quicksort:");
+                    break;
+
+                case 5: // 🔵 NUEVO
+                    Ordenamientos.mergeSort(numeros, 0, numeros.length - 1);
+                    System.out.println("\nOrdenado con Merge Sort:");
                     break;
 
                 default:

@@ -1,5 +1,3 @@
-
-
 import java.util.Arrays;
 
 /**
@@ -9,6 +7,7 @@ import java.util.Arrays;
  * - Selección
  * - Inserción
  * - Quicksort
+ * - MergeSort
  * 
  * Incluye:
  * ✔ Conteo de operaciones
@@ -19,27 +18,23 @@ public class Ordenamientos {
 
     // BURBUJA
     public static void burbuja(int[] arr) {
-        int n = arr.length; // 1 asignación
-        int temp;           // 1 asignación
+        int n = arr.length;
+        int temp;
 
-        for (int i = 0; i < n - 1; i++) { // n iteraciones
+        for (int i = 0; i < n - 1; i++) {
 
-            // BREAKPOINT: inicio de cada pasada
-            for (int j = 0; j < n - 1 - i; j++) { // n iteraciones
+            for (int j = 0; j < n - 1 - i; j++) {
 
-                if (arr[j] > arr[j + 1]) { // comparación
+                if (arr[j] > arr[j + 1]) {
 
                     temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
-
-                    // BREAKPOINT: ver intercambio
                 }
             }
         }
     }
     /*
-    T(n) ≈ n²
     COMPLEJIDAD: O(n²)
     */
 
@@ -53,7 +48,6 @@ public class Ordenamientos {
 
             indiceMenor = i;
 
-            // BREAKPOINT: nuevo mínimo
             for (int j = i + 1; j < n; j++) {
 
                 if (arr[j] < arr[indiceMenor]) {
@@ -67,7 +61,6 @@ public class Ordenamientos {
         }
     }
     /*
-    T(n) ≈ n²
     COMPLEJIDAD: O(n²)
     */
 
@@ -81,7 +74,6 @@ public class Ordenamientos {
             int key = arr[i];
             int j = i - 1;
 
-            // BREAKPOINT: inserción de elemento
             while (j >= 0 && arr[j] > key) {
 
                 arr[j + 1] = arr[j];
@@ -96,21 +88,83 @@ public class Ordenamientos {
     Peor caso: O(n²)
     */
 
-    // QUICKSORT
+    // 🔵 MERGE SORT
+    public static void mergeSort(int[] arr, int izquierda, int derecha) {
+
+        if (izquierda < derecha) {
+
+            int medio = (izquierda + derecha) / 2;
+
+            // Subarreglo izquierdo
+            mergeSort(arr, izquierda, medio);
+
+            // Subarreglo derecho
+            mergeSort(arr, medio + 1, derecha);
+
+            // Combinar
+            merge(arr, izquierda, medio, derecha);
+        }
+    }
+
+    // 🔵 MERGE
+    public static void merge(int[] arr, int izquierda, int medio, int derecha) {
+
+        int n1 = medio - izquierda + 1;
+        int n2 = derecha - medio;
+
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+
+        for (int i = 0; i < n1; i++)
+            L[i] = arr[izquierda + i];
+
+        for (int j = 0; j < n2; j++)
+            R[j] = arr[medio + 1 + j];
+
+        int i = 0, j = 0;
+        int k = izquierda;
+
+        while (i < n1 && j < n2) {
+
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+    /*
+    COMPLEJIDAD:
+    O(n log n) en todos los casos
+    Espacio: O(n)
+    */
+
+    // 🔴 QUICKSORT
     public static void quicksort(int[] arr, int inicio, int fin) {
 
         if (inicio < fin) {
 
             int pivoteIndice = particion(arr, inicio, fin);
 
-            // DEBUG (te sirve para screenshots)
             System.out.println("Pivote en índice: " + pivoteIndice +
                                " -> " + Arrays.toString(arr));
 
-            // Subarreglo izquierdo
             quicksort(arr, inicio, pivoteIndice - 1);
-
-            // Subarreglo derecho
             quicksort(arr, pivoteIndice + 1, fin);
         }
     }
@@ -118,24 +172,21 @@ public class Ordenamientos {
     // 🔴 PARTICIÓN
     public static int particion(int[] arr, int inicio, int fin) {
 
-        int pivote = arr[fin]; // pivote
+        int pivote = arr[fin];
         int i = inicio - 1;
 
-        // BREAKPOINT: inicio partición
         for (int j = inicio; j < fin; j++) {
 
             if (arr[j] < pivote) {
 
                 i++;
 
-                // intercambio
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
             }
         }
 
-        // colocar pivote en posición correcta
         int temp = arr[i + 1];
         arr[i + 1] = arr[fin];
         arr[fin] = temp;
@@ -143,11 +194,9 @@ public class Ordenamientos {
         return i + 1;
     }
     /*
-    T(n) = 2T(n/2) + n
-
-    Mejor caso: O(n log n)
+    Mejor: O(n log n)
     Promedio: O(n log n)
-    Peor caso: O(n²)
+    Peor: O(n²)
     */
 
     // ⚫ IMPRIMIR
@@ -155,11 +204,7 @@ public class Ordenamientos {
         System.out.println(Arrays.toString(arr));
     }
 
-    /*
-    NOTA IMPORTANTE:
-    Este main es SOLO de prueba.
-    El proyecto principal debe usar la clase Main (menú).
-    */
+    // MAIN DE PRUEBA
     public static void main(String[] args) {
 
         int[] numeros = {4, 2, 4, 3, 1, 4};
@@ -167,7 +212,13 @@ public class Ordenamientos {
         System.out.println("Arreglo original:");
         imprimirArreglo(numeros);
 
-        quicksort(numeros, 0, numeros.length - 1);
+        // 🔁 CAMBIA AQUÍ EL MÉTODO QUE QUIERAS PROBAR
+
+        // burbuja(numeros);
+        // seleccion(numeros);
+        // insercion(numeros);
+        // quicksort(numeros, 0, numeros.length - 1);
+        mergeSort(numeros, 0, numeros.length - 1);
 
         System.out.println("Arreglo ordenado:");
         imprimirArreglo(numeros);
